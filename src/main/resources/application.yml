@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: subscription-workflow-service
+  data:
+    mongodb:
+      uri: ${MONGO_URI:mongodb://localhost:27017/subscriptiondb}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  flowable:
+    database-schema-update: true
+  security:
+    user:
+      name: ${APP_USER:admin}
+      password: ${APP_PASSWORD:admin123}
+
+subscriptionStatusConcurrency: ${SUBSCRIPTION_CONCURRENCY:3}
+provisioningResultConcurrency: ${PROVISIONING_CONCURRENCY:3}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+  info:
+    app:
+      name: subscription-workflow-service
+      version: 1.0.0
+
+logging:
+  level:
+    com.mohit.subscription.workflow: DEBUG
+    org.flowable: INFO
+    org.springframework.kafka: INFO
